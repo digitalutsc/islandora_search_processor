@@ -8,6 +8,6 @@
     "minimum-stability": "dev",
     "support": {
         "issues": "https://www.drupal.org/project/issues/islandora_search_processor",
-        "source": "http://cgit.drupalcode.org/islandora_search_processor",
-    },
+        "source": "http://cgit.drupalcode.org/islandora_search_processor"
+    }
 }
