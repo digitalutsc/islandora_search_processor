@@ -13,9 +13,12 @@ use Drupal\Tests\BrowserTestBase;
 class LoadTest extends BrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stable';
+
+  /**
+   * {@inheritdoc}
    */
   public static $modules = ['islandora_search_processor'];
 

@@ -6,6 +6,7 @@ use Drupal\search_api\Datasource\DatasourceInterface;
 use Drupal\search_api\Item\ItemInterface;
 use Drupal\search_api\Processor\ProcessorPluginBase;
 use Drupal\search_api\Processor\ProcessorProperty;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Adds the item's linked agent separately by type.
@@ -22,6 +23,23 @@ use Drupal\search_api\Processor\ProcessorProperty;
  * )
  */
 class LinkedAgentByType extends ProcessorPluginBase {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    /** @var static $processor */
+    $processor = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $processor->entityTypeManager = $container->get('entity_type.manager');
+    return $processor;
+  }
 
   /**
    * {@inheritdoc}
@@ -327,7 +345,7 @@ class LinkedAgentByType extends ProcessorPluginBase {
       foreach ($vals as $element) {
         $fields = $item->getFields(FALSE);
         $tid = $element['target_id'];
-        $taxo_term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tid);
+        $taxo_term = $this->entityTypeManager->getStorage('taxonomy_term')->load($tid);
         if ($taxo_term) {
           $taxo_name = $taxo_term->name->value;
           $rel_type = $element['rel_type'];
