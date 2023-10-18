@@ -43,7 +43,7 @@ class LoadTest extends BrowserTestBase {
    */
   public function testLoad() {
     $this->drupalGet(Url::fromRoute('<front>'));
-    $this->assertSession()->responseContains('200');
+    $this->assertSession()->statusMessageContains('200');
   }
 
 }
