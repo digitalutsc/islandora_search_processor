@@ -1,13 +1,13 @@
 {
-    "name": "islandora_search_processor",
+    "name": "islandora_lite/islandora_search_processor",
     "type": "drupal-module",
     "description": "Islandora Search Processors",
     "keywords": [
     ],
-    "homepage": "https://www.drupal.org/project/islandora_search_processor",
+    "homepage": "https://github.com/digitalutsc/islandora_search_processor",
     "minimum-stability": "dev",
     "support": {
-        "issues": "https://www.drupal.org/project/issues/islandora_search_processor",
-        "source": "http://cgit.drupalcode.org/islandora_search_processor"
+        "issues": "https://github.com/digitalutsc/islandora_search_processor/issues",
+        "source": "https://github.com/digitalutsc/islandora_search_processor"
     }
 }
