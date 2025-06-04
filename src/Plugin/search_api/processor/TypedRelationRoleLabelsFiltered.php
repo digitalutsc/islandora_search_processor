@@ -149,7 +149,7 @@ class TypedRelationRoleLabelsFiltered extends ProcessorPluginBase {
         $node_rel_types = $node_field_config->getSettings()["rel_types"];
 
         // If 'rel_types' is empty or not set, exit early.
-        if (empty($nodeRelTypes)) { 
+        if (empty($node_rel_types)) { 
           return;
         }        
       }      
