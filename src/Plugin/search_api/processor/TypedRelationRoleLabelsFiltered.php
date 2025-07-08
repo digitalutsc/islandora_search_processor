@@ -9,6 +9,7 @@ use Drupal\search_api\Item\ItemInterface;
 use Drupal\search_api\Processor\ProcessorPluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\Core\Language\Language;
 
 
 /**
@@ -132,6 +133,12 @@ class TypedRelationRoleLabelsFiltered extends ProcessorPluginBase {
     // Cycle over any typed relation fields on the original item.
     $content_entity = $item->getOriginalObject()->getValue();
 
+    // When getConfig() is called after setConfigOverrideLanguage(),
+    // it automatically fetches the translated values if available.    
+    $item_langcode = $item->getLanguage();
+    $target_language = new Language(['id' => $item_langcode]);
+    $languageManager = \Drupal::service('language_manager');
+    $languageManager->setConfigOverrideLanguage($target_language);
 
     foreach ($relevant_search_api_fields as $search_api_field) {
       $field_config = $search_api_field->getConfiguration();
