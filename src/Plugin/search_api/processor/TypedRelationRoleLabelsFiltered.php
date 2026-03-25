@@ -11,7 +11,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\Core\Language\Language;
 
-
 /**
  * Adds filterable fields for each Typed Relation field.
  *
@@ -52,9 +51,9 @@ class TypedRelationRoleLabelsFiltered extends ProcessorPluginBase {
    */
   public function __construct(
     array $configuration,
-          $plugin_id,
-          $plugin_definition,
-    EntityTypeManager $entityTypeManager
+    $plugin_id,
+    $plugin_definition,
+    EntityTypeManager $entityTypeManager,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entityTypeManager;
@@ -75,7 +74,7 @@ class TypedRelationRoleLabelsFiltered extends ProcessorPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function getPropertyDefinitions(DatasourceInterface $datasource = NULL): array {
+  public function getPropertyDefinitions(?DatasourceInterface $datasource = NULL): array {
     $properties = [];
 
     if (!$datasource || !$datasource->getEntityTypeId()) {
@@ -134,7 +133,7 @@ class TypedRelationRoleLabelsFiltered extends ProcessorPluginBase {
     $content_entity = $item->getOriginalObject()->getValue();
 
     // When getConfig() is called after setConfigOverrideLanguage(),
-    // it automatically fetches the translated values if available.    
+    // it automatically fetches the translated values if available.
     $item_langcode = $item->getLanguage();
     $target_language = new Language(['id' => $item_langcode]);
     $languageManager = \Drupal::service('language_manager');
@@ -156,22 +155,22 @@ class TypedRelationRoleLabelsFiltered extends ProcessorPluginBase {
         $node_rel_types = $node_field_config->getSettings()["rel_types"];
 
         // If 'rel_types' is empty or not set, exit early.
-        if (empty($node_rel_types)) { 
+        if (empty($node_rel_types)) {
           return;
-        }        
-      }      
+        }
+      }
 
       foreach ($vals as $element) {
-        $rel_type = $element['rel_type'] ?? null;
+        $rel_type = $element['rel_type'] ?? NULL;
 
-        # Skip if rel_type not found
+        // Skip if rel_type not found.
         if (empty($rel_type)) {
           continue;
-        }        
+        }
 
         if (in_array($rel_type, $field_config['rel_types'])) {
-          // Default to null if not found
-          $mapped_role = $node_rel_types[$rel_type] ?? null;
+          // Default to null if not found.
+          $mapped_role = $node_rel_types[$rel_type] ?? NULL;
 
           if ($mapped_role) {
             $search_api_field->addValue($mapped_role);
@@ -184,7 +183,7 @@ class TypedRelationRoleLabelsFiltered extends ProcessorPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function requiresReindexing(array $old_settings = NULL, array $new_settings = NULL) {
+  public function requiresReindexing(?array $old_settings = NULL, ?array $new_settings = NULL) {
     if ($new_settings != $old_settings) {
       return TRUE;
     }
@@ -192,4 +191,3 @@ class TypedRelationRoleLabelsFiltered extends ProcessorPluginBase {
   }
 
 }
-
