@@ -4,12 +4,14 @@ namespace Drupal\Tests\islandora_search_processor\Functional;
 
 use Drupal\Core\Url;
 use Drupal\Tests\BrowserTestBase;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Simple test to ensure that main page loads with module enabled.
  *
  * @group islandora_search_processor
  */
+#[RunTestsInSeparateProcesses]
 class LoadTest extends BrowserTestBase {
 
   /**
