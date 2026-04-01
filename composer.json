@@ -9,5 +9,6 @@
     "support": {
         "issues": "https://github.com/digitalutsc/islandora_search_processor/issues",
         "source": "https://github.com/digitalutsc/islandora_search_processor"
-    }
+    },
+    "require": {}
 }
